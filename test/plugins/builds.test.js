@@ -12,7 +12,7 @@ const testBuild = require('./data/build.json');
 const testBuildWithSteps = require('./data/buildWithSteps.json');
 const testBuildsStatuses = require('./data/buildsStatuses.json');
 const testSecrets = require('./data/secrets.json');
-const rewireBuildsIndex = rewire('../../plugins/builds/index.js');
+const rewireBuildsFunctions = rewire('../../plugins/builds/triggers/functions.js');
 /* eslint-disable no-underscore-dangle */
 
 sinon.assert.expose(assert, { prefix: '' });
@@ -6399,7 +6399,7 @@ describe('build plugin test', () => {
 });
 
 describe('isPR', () => {
-    const isPR = rewireBuildsIndex.__get__('isPR');
+    const isPR = rewireBuildsFunctions.__get__('isPR');
 
     it('sholud return true if job name has PR prefix', () => {
         assert.isTrue(isPR('PR-1:testJobName'));
@@ -6411,7 +6411,7 @@ describe('isPR', () => {
 });
 
 describe('trimJobName', () => {
-    const trimJobName = rewireBuildsIndex.__get__('trimJobName');
+    const trimJobName = rewireBuildsFunctions.__get__('trimJobName');
 
     it('sholud return jobName as it is (not trimmed)', () => {
         assert.equal(trimJobName('testJobName'), 'testJobName');
